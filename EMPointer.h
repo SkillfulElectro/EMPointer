@@ -108,6 +108,7 @@ namespace em {
               *ptr_counter -= 1;
               ptr_counter = nullptr;
               value = nullptr;
+              allocated = false;
             }else{
               if (!custom_style){
                 if (value){
@@ -115,10 +116,12 @@ namespace em {
                   delete[] value;
                   ptr_counter = nullptr;
                   value = nullptr;
+                  allocated = false;
                 }else{
                   delete ptr_counter;
                   ptr_counter = nullptr;
                   value = nullptr;
+                  allocated = false;
                 }
               }else{
                 if (value){
@@ -127,6 +130,7 @@ namespace em {
                     delete ptr_counter;
                     ptr_counter = nullptr;
                     value = nullptr;
+                    allocated = false;
 
                     return result;
                   }
@@ -136,6 +140,7 @@ namespace em {
                   delete ptr_counter;
                   ptr_counter = nullptr;
                   value = nullptr;
+                  allocated = false;
                 }
               }
             }
