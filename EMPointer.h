@@ -43,12 +43,14 @@ namespace em {
     class pointer{
       private:
         T* value;
-        int* ptr_counter;
+        
         bool custom_style;
         bool allocated;
         em::custom_ptr<T> custom;
 
       public:
+        int* ptr_counter;
+
 
         pointer(size_t size){
           ptr_counter = new int;
@@ -66,6 +68,29 @@ namespace em {
             allocated = false;
           }
         }
+
+        pointer(T* addr , em::custom_ptr<T>*  customer = nullptr , bool responsible = false){
+          if (responsible){
+            ptr_counter = new int;
+            *ptr_counter = 1;
+          }else{
+            ptr_counter = new int;
+             *ptr_counter = 2;
+          }
+
+
+
+          value = addr;
+          allocated = true;
+          
+          if (customer){
+            custom_style = true;
+            custom = *customer;
+          }else{
+            custom_style = false;
+          }
+        }
+
 
         pointer(){
           value = nullptr;
