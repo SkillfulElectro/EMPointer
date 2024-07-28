@@ -67,6 +67,13 @@ namespace em {
           }
         }
 
+        pointer(){
+          value = nullptr;
+          ptr_counter = nullptr;
+          allocated = false;
+          custom_style = false;
+        }
+
         pointer(custom_ptr<T> custom){
           ptr_counter = new int;
           *ptr_counter = 1;
