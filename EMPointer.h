@@ -59,17 +59,19 @@ namespace em {
 
 
         pointer(size_t size){
-          ptr_counter = new int;
-          *ptr_counter = 1;
-
+          ptr_counter = nullptr;
           value = nullptr;
+
+           
           value = new T[size];
           custom_style = false;
 
           if (value){
+             ptr_counter = new int;
+             *ptr_counter = 1;
             // allocated = true;
           }else{
-            delete ptr_counter;
+            value = nullptr;
             ptr_counter = nullptr;
             // allocated = false;
           }
