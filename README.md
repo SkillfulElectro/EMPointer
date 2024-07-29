@@ -59,4 +59,4 @@ int main() {
 }
 ```
 
-more features are coming to make everything easier to switch to this pointer from raw pointers
+make sure to read comments on the source code for better understanding
