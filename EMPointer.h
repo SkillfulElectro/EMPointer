@@ -304,14 +304,9 @@ namespace em {
          * expermental static_cast support
          */
         template<typename N>
-          explicit operator pointer<N>() const{
-            if (!custom_style){
-              value = static_cast<N*>(this->value);
-              return *this;
-            }else{
-              // not supported yet !
-            }
-          }
+        explicit operator pointer<N>() const {
+            return pointer<N>(static_cast<N*>(value), custom_style ? &custom : nullptr, false);
+        }
     };
 }
 #endif // !EM_POINTER
