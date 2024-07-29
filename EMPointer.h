@@ -304,7 +304,7 @@ namespace em {
         template<typename N>
           explicit operator pointer<N>() const{
             if (!custom_style){
-              value = static_cast<N*>(value);
+              value = static_cast<N*>(this->value);
               return *this;
             }else{
               // not supported yet !
