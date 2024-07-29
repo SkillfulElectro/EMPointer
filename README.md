@@ -1,4 +1,5 @@
 # EMPointer
+- inspired from Rustlang Rc
 - smart pointer which allows you to use it exactly how you used your pointers
 
 ## Why EMPointer
