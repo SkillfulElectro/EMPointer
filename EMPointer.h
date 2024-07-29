@@ -58,23 +58,11 @@ namespace em {
 
 
 
-        pointer(size_t size){
-          ptr_counter = nullptr;
-          value = nullptr;
-
-           
-          value = new T[size];
-          custom_style = false;
-
-          if (value){
-             ptr_counter = new int;
-             *ptr_counter = 1;
-            // allocated = true;
-          }else{
-            value = nullptr;
-            ptr_counter = nullptr;
-            // allocated = false;
-          }
+        pointer(size_t size) : ptr_counter(nullptr), value(nullptr), custom_style(false) {
+            value = new T[size];
+            if (value) {
+                ptr_counter = new int(1);
+            }
         }
 
         /*
@@ -82,26 +70,11 @@ namespace em {
          * but by default it wont be responsible for deallocating
          * also if a customer is from C like apis use customer para
          */
-        pointer(T* addr , em::custom_ptr<T>*  customer = nullptr , bool responsible = false){
-          if (responsible){
-            ptr_counter = new int;
-            *ptr_counter = 1;
-          }else{
-            ptr_counter = new int;
-            *ptr_counter = 2;
-          }
-
-
-
-          value = addr;
-          // allocated = true;
-
-          if (customer){
-            custom_style = true;
-            custom = *customer;
-          }else{
-            custom_style = false;
-          }
+        pointer(T* addr, em::custom_ptr<T>* customer = nullptr, bool responsible = false)
+            : ptr_counter(new int(responsible ? 1 : 2)), value(addr), custom_style(customer != nullptr) {
+            if (custom_style) {
+                custom = *customer;
+            }
         }
 
 
@@ -112,32 +85,22 @@ namespace em {
           custom_style = false;
         }
 
-        pointer(custom_ptr<T> custom){
-          ptr_counter = new int;
-          *ptr_counter = 1;
-
-          this->custom = custom;
-          custom_style = true;
-          int result = custom.allocator(value);
-
-          if (result != 0){
-            delete ptr_counter;
-            ptr_counter = nullptr;
-            value = nullptr;
-            // allocated = false;
-            std::cerr << "Error: custom_ptr allocator -> " << result << '\n';
-          }else {
-            // allocated = true;
-          }
+        pointer(custom_ptr<T> custom)
+            : ptr_counter(new int(1)), value(nullptr), custom_style(true), custom(custom) {
+            int result = custom.allocator(value);
+            if (result != 0) {
+                delete ptr_counter;
+                ptr_counter = nullptr;
+                value = nullptr;
+                std::cerr << "Error: custom_ptr allocator -> " << result << '\n';
+            }
         }
 
-        pointer(const pointer& other){
-          this->ptr_counter = other.ptr_counter;
-          *ptr_counter += 1;
-          value = other.value;
-          custom_style = other.custom_style;
-          // allocated = other.allocated;
-          custom = other.custom;
+        pointer(const pointer& other)
+            : ptr_counter(other.ptr_counter), value(other.value), custom_style(other.custom_style), custom(other.custom) {
+            if (ptr_counter) {
+                ++(*ptr_counter);
+            }
         }
 
         int delete_ptr(){
