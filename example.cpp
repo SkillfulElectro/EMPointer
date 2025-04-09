@@ -349,7 +349,7 @@ int main() {
     std::cout << "===== Comparison Finished =====\n" << std::endl;
     // Note: The final instance_count reported here might be inaccurate depending on execution environment
     // and timing relative to static object destruction, but ideally should be 0 if all leaks (including raw ones) are fixed.
-    // The previous run showed 8, likely due to raw pointer leaks in the test code itself.
+    // none zero likely due to raw pointer leaks.
     std::cout << "Final MyData instance count check: " << MyData::instance_count << std::endl;
     return 0;
 } // All remaining em::pointer objects are destroyed here via RAII
